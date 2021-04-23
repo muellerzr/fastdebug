@@ -3,8 +3,10 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"device_error": "00_error.torch.ipynb",
-         "get_shape": "00_error.torch.ipynb",
-         "get_layer_by_shape": "00_error.torch.ipynb",
+         "hook_fn": "00_error.torch.ipynb",
+         "PreHook": "00_error.torch.ipynb",
+         "ForwardHooks": "00_error.torch.ipynb",
+         "hook_outputs": "00_error.torch.ipynb",
          "layer_error": "00_error.torch.ipynb",
          "loss_func_error": "01_error.fastai.ipynb",
          "callback_error": "01_error.fastai.ipynb",

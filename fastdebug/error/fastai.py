@@ -111,3 +111,13 @@ def _do_one_batch(self:Learner):
     self.loss_grad.backward()
     self._with_events(self.opt.step, 'step', CancelStepException)
     self.opt.zero_grad()
+
+# Cell
+@patch
+def _call_one(self:Learner, event_name):
+    if not hasattr(event, event_name): raise Exception(f'missing {event_name}')
+    for cb in self.cbs.sorted('order'):
+        try:
+            cb(event_name)
+        except Exception as e:
+            callback_error(e, cb.__repr__(), event_name)

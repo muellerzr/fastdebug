@@ -281,23 +281,6 @@ nb_path: "01_error.fastai.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@patch</span>
-<span class="k">def</span> <span class="nf">_call_one</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span><span class="n">Learner</span><span class="p">,</span> <span class="n">event_name</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">event_name</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;missing </span><span class="si">{</span><span class="n">event_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cbs</span><span class="o">.</span><span class="n">sorted</span><span class="p">(</span><span class="s1">&#39;order&#39;</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">cb</span><span class="p">(</span><span class="n">event_name</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">callback_error</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">cb</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(),</span> <span class="n">event_name</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     {% endraw %}

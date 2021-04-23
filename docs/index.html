@@ -1,13 +1,13 @@
 ---
 
-title: Project name here
+title: fastdebug
 
 
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Summary description here."
-description: "Summary description here."
+summary: "A helpful library for improving torch and fastai errors"
+description: "A helpful library for improving torch and fastai errors"
 nb_path: "index.ipynb"
 ---
 <!--
@@ -31,20 +31,13 @@ nb_path: "index.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This file will become your README and also the index of your documentation.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>pip install your_project_name</code></p>
+<p><code>pip install fastdebug</code></p>
 
 </div>
 </div>
@@ -57,44 +50,157 @@ nb_path: "index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Fill me in please! Don't forget code examples:</p>
+<p><code>fastdebug</code> is designed around improving the quality of life when dealing with Pytorch and fastai errors, while also including some new sanity checks (fastai only)</p>
 
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Pytorch">Pytorch<a class="anchor-link" href="#Pytorch"> </a></h3><p>Pytorch now has:</p>
+<ul>
+<li><a href="/fastdebug/error.torch.html#device_error"><code>device_error</code></a></li>
+<li><a href="/fastdebug/error.torch.html#layer_error"><code>layer_error</code></a></li>
+</ul>
+<p>Both can be imported with:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fastdebug.error.torch</span> <span class="kn">import</span> <span class="n">device_error</span><span class="p">,</span> <span class="n">layer_error</span>
+</pre></div>
+<p><a href="/fastdebug/error.torch.html#device_error"><code>device_error</code></a> prints out a much more readable error for when two tensors aren't on the same device:</p>
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">device_error</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s1">&#39;Input type&#39;</span><span class="p">,</span> <span class="s1">&#39;Model weights&#39;</span><span class="p">)</span>
+</pre></div>
+<p>And our new log:</p>
+<div class="highlight"><pre><span></span>---------------------------------------------------------------------------
+RuntimeError                              Traceback <span class="o">(</span>most recent call last<span class="o">)</span>
+&lt;ipython-input-28-981e0ace9c38&gt; <span class="k">in</span> &lt;module&gt;<span class="o">()</span>
+      <span class="m">2</span>     model<span class="o">(</span>x<span class="o">)</span>
+      <span class="m">3</span> except Exception as e:
+----&gt; <span class="m">4</span>     device_error<span class="o">(</span>e, <span class="s1">&#39;Input type&#39;</span>, <span class="s1">&#39;Model weights&#39;</span><span class="o">)</span>
+
+<span class="m">10</span> frames
+/usr/local/lib/python3.7/dist-packages/torch/tensor.py <span class="k">in</span> __torch_function__<span class="o">(</span>cls, func, types, args, kwargs<span class="o">)</span>
+    <span class="m">993</span> 
+    <span class="m">994</span>         with _C.DisableTorchFunction<span class="o">()</span>:
+--&gt; <span class="m">995</span>             <span class="nv">ret</span> <span class="o">=</span> func<span class="o">(</span>*args, **kwargs<span class="o">)</span>
+    <span class="m">996</span>             <span class="k">return</span> _convert<span class="o">(</span>ret, cls<span class="o">)</span>
+    <span class="m">997</span> 
+
+RuntimeError: Mismatch between weight types
+
+Input <span class="nb">type</span> has type:         <span class="o">(</span>torch.cuda.FloatTensor<span class="o">)</span>
+Model weights have type:     <span class="o">(</span>torch.FloatTensor<span class="o">)</span>
+
+Both should be the same.
 </pre></div>
 
-    </div>
 </div>
 </div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>2</pre>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And with <a href="/fastdebug/error.torch.html#layer_error"><code>layer_error</code></a>, if there is a shape mismatch it will attempt to find the right layer it was at:</p>
+<div class="highlight"><pre><span></span><span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">m</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">layer_error</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="o">---------------------------------------------------------------------------</span>
+<span class="ne">RuntimeError</span>                              <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">84</span><span class="o">-</span><span class="n">d4ab91131841</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+      <span class="mi">3</span>     <span class="n">m</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+      <span class="mi">4</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="o">----&gt;</span> <span class="mi">5</span>     <span class="n">layer_error</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">83</span><span class="o">-</span><span class="n">ca2dc02cfff4</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="n">layer_error</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+      <span class="mi">8</span>     <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">get_layer_by_shape</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
+      <span class="mi">9</span>     <span class="n">e</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Size mismatch between input tensors and what the model expects</span><span class="se">\n\n</span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="se">\n\t</span><span class="s1">at layer </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">layer</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+<span class="o">---&gt;</span> <span class="mi">10</span>     <span class="k">raise</span> <span class="n">e</span>
+
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">84</span><span class="o">-</span><span class="n">d4ab91131841</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+      <span class="mi">1</span> <span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+      <span class="mi">2</span> <span class="k">try</span><span class="p">:</span>
+<span class="o">----&gt;</span> <span class="mi">3</span>     <span class="n">m</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+      <span class="mi">4</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="mi">5</span>     <span class="n">layer_error</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+
+<span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">d</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">torch</span><span class="o">/</span><span class="n">nn</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">module</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="n">_call_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="nb">input</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="mi">725</span>             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slow_forward</span><span class="p">(</span><span class="o">*</span><span class="nb">input</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="mi">726</span>         <span class="k">else</span><span class="p">:</span>
+<span class="o">--&gt;</span> <span class="mi">727</span>             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="o">*</span><span class="nb">input</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="mi">728</span>         <span class="k">for</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
+    <span class="mi">729</span>                 <span class="n">_global_forward_hooks</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+
+<span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">d</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">torch</span><span class="o">/</span><span class="n">nn</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">container</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span>
+    <span class="mi">115</span>     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+    <span class="mi">116</span>         <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+<span class="o">--&gt;</span> <span class="mi">117</span>             <span class="nb">input</span> <span class="o">=</span> <span class="n">module</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+    <span class="mi">118</span>         <span class="k">return</span> <span class="nb">input</span>
+    <span class="mi">119</span> 
+
+<span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">d</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">torch</span><span class="o">/</span><span class="n">nn</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">module</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="n">_call_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="nb">input</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="mi">725</span>             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slow_forward</span><span class="p">(</span><span class="o">*</span><span class="nb">input</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="mi">726</span>         <span class="k">else</span><span class="p">:</span>
+<span class="o">--&gt;</span> <span class="mi">727</span>             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="o">*</span><span class="nb">input</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="mi">728</span>         <span class="k">for</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span>
+    <span class="mi">729</span>                 <span class="n">_global_forward_hooks</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+
+<span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">d</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">torch</span><span class="o">/</span><span class="n">nn</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">conv</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span>
+    <span class="mi">421</span> 
+    <span class="mi">422</span>     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+<span class="o">--&gt;</span> <span class="mi">423</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conv_forward</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+    <span class="mi">424</span> 
+    <span class="mi">425</span> <span class="k">class</span> <span class="nc">Conv3d</span><span class="p">(</span><span class="n">_ConvNd</span><span class="p">):</span>
+
+<span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">d</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">torch</span><span class="o">/</span><span class="n">nn</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">conv</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="n">_conv_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+    <span class="mi">418</span>                             <span class="n">_pair</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
+    <span class="mi">419</span>         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+<span class="o">--&gt;</span> <span class="mi">420</span>                         <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="p">)</span>
+    <span class="mi">421</span> 
+    <span class="mi">422</span>     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+
+<span class="ne">RuntimeError</span><span class="p">:</span> <span class="n">Size</span> <span class="n">mismatch</span> <span class="n">between</span> <span class="nb">input</span> <span class="n">tensors</span> <span class="ow">and</span> <span class="n">what</span> <span class="n">the</span> <span class="n">model</span> <span class="n">expects</span>
+
+<span class="n">Model</span> <span class="n">expected</span> <span class="mi">4</span><span class="o">-</span><span class="n">dimensional</span> <span class="nb">input</span> <span class="k">for</span> <span class="mi">4</span><span class="o">-</span><span class="n">dimensional</span> <span class="n">weight</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">but</span> <span class="n">got</span> <span class="mi">3</span><span class="o">-</span><span class="n">dimensional</span> <span class="nb">input</span> <span class="n">of</span> <span class="n">size</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="n">instead</span>
+    <span class="n">at</span> <span class="n">layer</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
 
 </div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="fastai">fastai<a class="anchor-link" href="#fastai"> </a></h3><p>Along with the additions above (and are used during <code>fit</code>), fastai now has a <a href="/fastdebug/error.fastai.html#Learner.sanity_check"><code>Learner.sanity_check</code></a> function, which allows you to quickly perform a basic check to ensure that your call to <code>fit</code> won't raise any exceptions. They are performed on the CPU for a partial epoch to make sure that <code>CUDA</code> device-assist errors can be preemptively found.</p>
+<p>To use it simply do:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fastdebug.error.fastai</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">fastai.vision.all</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">learn</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">learn</span><span class="o">.</span><span class="n">sanity_check</span><span class="p">()</span>
+</pre></div>
+<p>This is also now an argument in <code>Learner</code>, set to <code>False</code> by default, so that after making your <code>Learner</code> a quick check is ensured.</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">learn</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">sanity_check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
 
 </div>
-    {% endraw %}
-
+</div>
+</div>
 </div>
  
 

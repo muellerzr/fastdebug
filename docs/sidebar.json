@@ -1,0 +1,7 @@
+{
+  "fastdebug": {
+    "Overview": "/",
+    "Pytorch Errors": "error.torch.html",
+    "fastai Errors": "error.fastai.html"
+  }
+}

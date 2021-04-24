@@ -11,10 +11,13 @@ entries:
       url: /
     - output: web,pdf
       title: Pytorch Errors
-      url: error.torch.html
+      url: torch.html
+    - output: web,pdf
+      title: DataLoader Errors
+      url: fastai.data.html
     - output: web,pdf
       title: fastai Errors
-      url: error.fastai.html
+      url: fastai.learner.html
     output: web
     title: fastdebug
   output: web

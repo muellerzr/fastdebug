@@ -1,7 +1,8 @@
 {
   "fastdebug": {
     "Overview": "/",
-    "Pytorch Errors": "error.torch.html",
-    "fastai Errors": "error.fastai.html"
+    "Pytorch Errors": "torch.html",
+    "DataLoader Errors": "fastai.data.html",
+    "fastai Errors": "fastai.learner.html"
   }
 }

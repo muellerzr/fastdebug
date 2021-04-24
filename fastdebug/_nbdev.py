@@ -2,21 +2,24 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"device_error": "00_error.torch.ipynb",
-         "hook_fn": "00_error.torch.ipynb",
-         "PreHook": "00_error.torch.ipynb",
-         "ForwardHooks": "00_error.torch.ipynb",
-         "hook_outputs": "00_error.torch.ipynb",
-         "layer_error": "00_error.torch.ipynb",
-         "loss_func_error": "01_error.fastai.ipynb",
-         "callback_error": "01_error.fastai.ipynb",
-         "catch_pred_errors": "01_error.fastai.ipynb",
-         "catch_loss_errors": "01_error.fastai.ipynb",
-         "Learner.sanity_check": "01_error.fastai.ipynb",
-         "Learner.__init__": "01_error.fastai.ipynb"}
+index = {"device_error": "00_torch.ipynb",
+         "hook_fn": "00_torch.ipynb",
+         "PreHook": "00_torch.ipynb",
+         "ForwardHooks": "00_torch.ipynb",
+         "hook_outputs": "00_torch.ipynb",
+         "layer_error": "00_torch.ipynb",
+         "collate_error": "01_fastai.data.ipynb",
+         "DataLoader.create_batch": "01_fastai.data.ipynb",
+         "loss_func_error": "02_fastai.learner.ipynb",
+         "callback_error": "02_fastai.learner.ipynb",
+         "catch_pred_errors": "02_fastai.learner.ipynb",
+         "catch_loss_errors": "02_fastai.learner.ipynb",
+         "Learner.sanity_check": "02_fastai.learner.ipynb",
+         "Learner.__init__": "02_fastai.learner.ipynb"}
 
-modules = ["error/torch.py",
-           "error/fastai.py"]
+modules = ["torch.py",
+           "fastai/dataloader.py",
+           "fastai/learner.py"]
 
 doc_url = "https://muellerzr.github.io/fastdebug/"
 

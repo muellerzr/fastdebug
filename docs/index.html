@@ -59,13 +59,13 @@ nb_path: "index.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Pytorch">Pytorch<a class="anchor-link" href="#Pytorch"> </a></h3><p>Pytorch now has:</p>
 <ul>
-<li><a href="/fastdebug/error.torch.html#device_error"><code>device_error</code></a></li>
-<li><a href="/fastdebug/error.torch.html#layer_error"><code>layer_error</code></a></li>
+<li><a href="/fastdebug/torch.html#device_error"><code>device_error</code></a></li>
+<li><a href="/fastdebug/torch.html#layer_error"><code>layer_error</code></a></li>
 </ul>
 <p>Both can be imported with:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fastdebug.error.torch</span> <span class="kn">import</span> <span class="n">device_error</span><span class="p">,</span> <span class="n">layer_error</span>
 </pre></div>
-<p><a href="/fastdebug/error.torch.html#device_error"><code>device_error</code></a> prints out a much more readable error for when two tensors aren't on the same device:</p>
+<p><a href="/fastdebug/torch.html#device_error"><code>device_error</code></a> prints out a much more readable error for when two tensors aren't on the same device:</p>
 
 </div>
 </div>
@@ -108,7 +108,7 @@ Both should be the same.
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>And with <a href="/fastdebug/error.torch.html#layer_error"><code>layer_error</code></a>, if there is a shape mismatch it will attempt to find the right layer it was at:</p>
+<p>And with <a href="/fastdebug/torch.html#layer_error"><code>layer_error</code></a>, if there is a shape mismatch it will attempt to find the right layer it was at:</p>
 <div class="highlight"><pre><span></span><span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">m</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
@@ -180,9 +180,9 @@ Both should be the same.
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="fastai">fastai<a class="anchor-link" href="#fastai"> </a></h3><p>Along with the additions above (and are used during <code>fit</code>), fastai now has a <a href="/fastdebug/error.fastai.html#Learner.sanity_check"><code>Learner.sanity_check</code></a> function, which allows you to quickly perform a basic check to ensure that your call to <code>fit</code> won't raise any exceptions. They are performed on the CPU for a partial epoch to make sure that <code>CUDA</code> device-assist errors can be preemptively found.</p>
+<h3 id="fastai">fastai<a class="anchor-link" href="#fastai"> </a></h3><p>Along with the additions above (and are used during <code>fit</code>), fastai now has a <a href="/fastdebug/fastai.learner.html#Learner.sanity_check"><code>Learner.sanity_check</code></a> function, which allows you to quickly perform a basic check to ensure that your call to <code>fit</code> won't raise any exceptions. They are performed on the CPU for a partial epoch to make sure that <code>CUDA</code> device-assist errors can be preemptively found.</p>
 <p>To use it simply do:</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fastdebug.error.fastai</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fastdebug.fastai</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">fastai.vision.all</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">learn</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>

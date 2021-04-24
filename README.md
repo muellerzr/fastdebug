@@ -133,7 +133,7 @@ Along with the additions above (and are used during `fit`), fastai now has a `Le
 
 To use it simply do:
 ```python
-from fastdebug.error.fastai import *
+from fastdebug.fastai import *
 from fastai.vision.all import *
 
 learn = Learner(...)

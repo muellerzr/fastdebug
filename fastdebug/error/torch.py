@@ -7,6 +7,7 @@ import torch
 import re
 from fastai.callback.hook import Hook
 from fastai.torch_core import to_detach
+from fastai.layers import flatten_model
 
 from fastcore.basics import store_attr
 
@@ -47,7 +48,9 @@ class PreHook(Hook):
 class ForwardHooks():
     "Create several forward-hooks on the modules in `ms` with `hook_func`"
     def __init__(self, ms, hook_func, is_forward=True, detach=True, cpu=False):
-        self.hooks = [PreHook(m, hook_func, is_forward, detach, cpu) for m in ms]
+        self.hooks = []
+        for i, m in enumerate(flatten_model(ms)):
+            self.hooks.append(PreHook(m, hook_func, is_forward, detach, cpu))
 
 # Cell
 def hook_outputs(modules, detach=True, cpu=False, grad=False):
@@ -55,7 +58,7 @@ def hook_outputs(modules, detach=True, cpu=False, grad=False):
     return ForwardHooks(modules, hook_fn, detach=detach, cpu=cpu, is_forward=not grad)
 
 # Cell
-def layer_error(e:Exception, model, inp) -> Exception:
+def layer_error(e:Exception, model, *inp) -> Exception:
     """
     Verbose error for when there is a size mismatch between some input and the model.
     `model` should be any torch model
@@ -64,11 +67,16 @@ def layer_error(e:Exception, model, inp) -> Exception:
     args = e.args[0].replace("Expected", "Model expected")
     hooks = hook_outputs(model)
     try:
-        _ = model(inp)
+        _ = model(*inp)
     except:
         pass
     finally:
-        layer = [hook.stored for hook in hooks.hooks if hook.stored is not None][-1]
+        layers,num = [], 0
+        for i, layer in enumerate(hooks.hooks):
+            if layer.stored is not None:
+                layers.append(layer.stored)
+                num += 1
+        layer = layers[-1]
         [h.remove() for h in hooks.hooks]
-        e.args = [f'Size mismatch between input tensors and what the model expects\n{"-"*76}\nLayer: {layer}\nError: > {args}']
+        e.args = [f'Size mismatch between input tensors and what the model expects\n{"-"*76}\nLayer: {i}, {layer}\nError: {args}']
         raise e

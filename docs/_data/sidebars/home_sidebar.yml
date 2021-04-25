@@ -16,8 +16,11 @@ entries:
       title: DataLoader Errors
       url: fastai.data.html
     - output: web,pdf
-      title: fastai Errors
+      title: Learner Errors
       url: fastai.learner.html
+    - output: web,pdf
+      title: Transform Errors
+      url: fastai.transform.html
     output: web
     title: fastdebug
   output: web

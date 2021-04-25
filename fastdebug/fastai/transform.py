@@ -4,6 +4,7 @@ __all__ = ['transform_error']
 
 # Cell
 from fastai.data.core import TfmdDL
+from fastai.data.load import DataLoader
 
 from fastcore.basics import patch
 from fastcore.meta import delegates
@@ -17,7 +18,7 @@ def transform_error(e:Exception, nm:str, event:str) -> Exception:
     - `nm`: The name of the Transform
     - `event`: The event called (such as `encodes` or `decodes`)
     """
-    err = f'There was an issue calling event {event} on transform {nm}:\n\n'
+    err = f'There was an issue calling the {event} on transform {nm}:\n\n'
     err += e.args[0]
     e.args = [err]
     raise e
@@ -50,7 +51,7 @@ def new(self:TfmdDL, dataset=None, cls=None, **kwargs):
             self._one_pass()
             res._n_inp,res._types = self._n_inp,self._types
         except Exception as e:
-            print("Could not do one pass in your dataloader, there is something wrong in it")
+            print("Could not do one pass in your DataLoader, there is something wrong in it. Please see the stack trace below:")
             raise e
     else: res._n_inp,res._types = self._n_inp,self._types
     return res

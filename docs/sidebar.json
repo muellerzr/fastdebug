@@ -3,6 +3,7 @@
     "Overview": "/",
     "Pytorch Errors": "torch.html",
     "DataLoader Errors": "fastai.data.html",
-    "fastai Errors": "fastai.learner.html"
+    "Learner Errors": "fastai.learner.html",
+    "Transform Errors": "fastai.transform.html"
   }
 }

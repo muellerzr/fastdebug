@@ -131,7 +131,7 @@ def module_error(e:AttributeError) -> AttributeError:
     """
     args = e.args[0]
     err = 'Custom classes or functions exported with your `Learner` are not available in the namespace currently.\n'
-    err = 'Please re-declare them before calling `load_learner`:\n'
+    err += 'Please re-declare them before calling `load_learner`:\n'
     err += args
     e.args = [err]
     raise e

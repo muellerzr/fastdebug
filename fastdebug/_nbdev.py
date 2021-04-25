@@ -17,6 +17,8 @@ index = {"device_error": "00_torch.ipynb",
          "catch_loss_errors": "02_fastai.learner.ipynb",
          "Learner.sanity_check": "02_fastai.learner.ipynb",
          "Learner.__init__": "02_fastai.learner.ipynb",
+         "module_error": "02_fastai.learner.ipynb",
+         "load_learner": "02_fastai.learner.ipynb",
          "transform_error": "03_fastai.transform.ipynb",
          "Transform.__call__": "03_fastai.transform.ipynb",
          "Transform.decode": "03_fastai.transform.ipynb"}

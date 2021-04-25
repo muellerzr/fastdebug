@@ -76,7 +76,7 @@ nb_path: "02_fastai.learner.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="loss_func_error" class="doc_header"><code>loss_func_error</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loss_func_error</code>(<strong><code>e</code></strong>:<code>Exception</code>, <strong><code>learn</code></strong>)</p>
+<h4 id="loss_func_error" class="doc_header"><code>loss_func_error</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L20" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>loss_func_error</code>(<strong><code>e</code></strong>:<code>Exception</code>, <strong><code>learn</code></strong>)</p>
 </blockquote>
 <p>Error that should be run when there is an issue when working with the loss function</p>
 <p>Raises with a message stating the shapes of the inputs and targs, and the error</p>
@@ -109,7 +109,7 @@ nb_path: "02_fastai.learner.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="callback_error" class="doc_header"><code>callback_error</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L33" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>callback_error</code>(<strong><code>e</code></strong>:<code>Exception</code>, <strong><code>cb</code></strong>:<code>str</code>, <strong><code>event_name</code></strong>:<code>str</code>)</p>
+<h4 id="callback_error" class="doc_header"><code>callback_error</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L34" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>callback_error</code>(<strong><code>e</code></strong>:<code>Exception</code>, <strong><code>cb</code></strong>:<code>str</code>, <strong><code>event_name</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Raises an error from when a Callback event failed, showing what event, the name of the Callback and the trace</p>
 
@@ -141,7 +141,7 @@ nb_path: "02_fastai.learner.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="catch_pred_errors" class="doc_header"><code>catch_pred_errors</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L41" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>catch_pred_errors</code>(<strong><code>e</code></strong>:<code>Exception</code>, <strong><code>model</code></strong>)</p>
+<h4 id="catch_pred_errors" class="doc_header"><code>catch_pred_errors</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L42" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>catch_pred_errors</code>(<strong><code>e</code></strong>:<code>Exception</code>, <strong><code>model</code></strong>)</p>
 </blockquote>
 <p>Catches any errors relating to prediction that are either related to the device or model layers. Else raise <code>e</code></p>
 
@@ -173,7 +173,7 @@ nb_path: "02_fastai.learner.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="catch_loss_errors" class="doc_header"><code>catch_loss_errors</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L48" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>catch_loss_errors</code>(<strong><code>e</code></strong>:<code>Exception</code>, <strong><code>learn</code></strong>)</p>
+<h4 id="catch_loss_errors" class="doc_header"><code>catch_loss_errors</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L49" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>catch_loss_errors</code>(<strong><code>e</code></strong>:<code>Exception</code>, <strong><code>learn</code></strong>)</p>
 </blockquote>
 <p>Catches any errors that occur with the loss function and its calculation</p>
 
@@ -225,7 +225,7 @@ nb_path: "02_fastai.learner.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Learner.__init__" class="doc_header"><code>Learner.__init__</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L77" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.__init__</code>(<strong><code>dls</code></strong>, <strong><code>model</code></strong>, <strong><code>loss_func</code></strong>=<em><code>None</code></em>, <strong><code>opt_func</code></strong>=<em><code>Adam</code></em>, <strong><code>lr</code></strong>=<em><code>0.001</code></em>, <strong><code>splitter</code></strong>=<em><code>trainable_params</code></em>, <strong><code>cbs</code></strong>=<em><code>None</code></em>, <strong><code>metrics</code></strong>=<em><code>None</code></em>, <strong><code>path</code></strong>=<em><code>None</code></em>, <strong><code>model_dir</code></strong>=<em><code>'models'</code></em>, <strong><code>wd</code></strong>=<em><code>None</code></em>, <strong><code>wd_bn_bias</code></strong>=<em><code>False</code></em>, <strong><code>train_bn</code></strong>=<em><code>True</code></em>, <strong><code>moms</code></strong>=<em><code>(0.95, 0.85, 0.95)</code></em>, <strong><code>sanity_check</code></strong>=<em><code>False</code></em>, <strong><code>show_table</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="Learner.__init__" class="doc_header"><code>Learner.__init__</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L78" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.__init__</code>(<strong><code>dls</code></strong>, <strong><code>model</code></strong>, <strong><code>loss_func</code></strong>=<em><code>None</code></em>, <strong><code>opt_func</code></strong>=<em><code>Adam</code></em>, <strong><code>lr</code></strong>=<em><code>0.001</code></em>, <strong><code>splitter</code></strong>=<em><code>trainable_params</code></em>, <strong><code>cbs</code></strong>=<em><code>None</code></em>, <strong><code>metrics</code></strong>=<em><code>None</code></em>, <strong><code>path</code></strong>=<em><code>None</code></em>, <strong><code>model_dir</code></strong>=<em><code>'models'</code></em>, <strong><code>wd</code></strong>=<em><code>None</code></em>, <strong><code>wd_bn_bias</code></strong>=<em><code>False</code></em>, <strong><code>train_bn</code></strong>=<em><code>True</code></em>, <strong><code>moms</code></strong>=<em><code>(0.95, 0.85, 0.95)</code></em>, <strong><code>sanity_check</code></strong>=<em><code>False</code></em>, <strong><code>show_table</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Group together a <code>model</code>, some <code>dls</code> and a <code>loss_func</code> to handle training, potentially run a sanity check</p>
 
@@ -250,7 +250,7 @@ nb_path: "02_fastai.learner.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Learner.sanity_check" class="doc_header"><code>Learner.sanity_check</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L54" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.sanity_check</code>(<strong><code>show_table</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="Learner.sanity_check" class="doc_header"><code>Learner.sanity_check</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L55" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Learner.sanity_check</code>(<strong><code>show_table</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Performs a short epoch and uses all the callbacks in <code>self.cbs</code> on the CPU to ensure nothing is broken</p>
 
@@ -285,6 +285,77 @@ nb_path: "02_fastai.learner.ipynb"
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="module_error" class="doc_header"><code>module_error</code><a href="https://github.com/muellerzr/fastdebug/tree/master/fastdebug/fastai/learner.py#L127" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>module_error</code>(<strong><code>e</code></strong>:<code>AttributeError</code>)</p>
+</blockquote>
+<p>Raises an error when trying to load in a previous <code>Learner</code> and custom functions were not available in the namespace</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="load_learner" class="doc_header"><code>load_learner</code><a href="https://github.com/fastai/fastai/tree/master/fastai/learner.py#L371" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_learner</code>(<strong><code>fname</code></strong>, <strong><code>cpu</code></strong>=<em><code>True</code></em>, <strong><code>pickle_module</code></strong>=<em><code>pickle</code></em>)</p>
+</blockquote>
+<p>Load a <code>Learner</code> object in <code>fname</code>, optionally putting it on the <code>cpu</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have a custom <a href="/fastdebug/fastai.learner.html#load_learner"><code>load_learner</code></a> function here that can check if everything exported is available when bringing the model in, if not then it'll raise an explicit error</p>
+
+</div>
+</div>
+</div>
 </div>
  
 

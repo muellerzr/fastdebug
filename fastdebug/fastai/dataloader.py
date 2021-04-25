@@ -5,6 +5,7 @@ __all__ = ['collate_error']
 # Cell
 import inflect
 from fastcore.basics import patch
+from fastai.data.core import TfmdDL
 from fastai.data.load import DataLoader, fa_collate, fa_convert
 
 # Cell
@@ -44,3 +45,17 @@ def create_batch(self:DataLoader, b):
         if not self.prebatched:
             collate_error(e, b)
         else: raise e
+
+# Cell
+@patch
+def new(self:TfmdDL, dataset=None, cls=None, **kwargs):
+    res = super(TfmdDL, self).new(dataset, cls, do_setup=False, **kwargs)
+    if not hasattr(self, '_n_inp') or not hasattr(self, '_types'):
+        try:
+            self._one_pass()
+            res._n_inp,res._types = self._n_inp,self._types
+        except Exception as e:
+            print("Could not do one pass in your dataloader, there is something wrong in it")
+            raise e
+    else: res._n_inp,res._types = self._n_inp,self._types
+    return res

@@ -14,13 +14,16 @@ entries:
       url: torch.html
     - output: web,pdf
       title: DataLoader Errors
-      url: fastai.data.html
+      url: fastai.dataloader.html
     - output: web,pdf
       title: Learner Errors
       url: fastai.learner.html
     - output: web,pdf
       title: Transform Errors
       url: fastai.transform.html
+    - output: web,pdf
+      title: Dataset Errors
+      url: fastai.datasets.html
     output: web
     title: fastdebug
   output: web

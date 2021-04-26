@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.0.5
+### New Features:
+* DataLoader and Dataset errors, essentially FC
+
 ## 0.0.4
 ### New Features:
 * `layer_error` now supports multi-input models

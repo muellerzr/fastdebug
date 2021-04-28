@@ -43,3 +43,20 @@ def subset(self:TfmdLists, i:int):
     "New `TfmdLists` with same tfms that only includes items in `i`th split"
     try: return self._new(self._get(self.splits[i]), split_idx=i)
     except IndexError as e: subset_error(e, i)
+
+# Cell
+@patch
+def setup(self:TfmdLists, train_setup=True):
+    "Transform setup with self"
+    self.tfms.setup(self, train_setup)
+    if len(self) != 0:
+        x = super().__getitem__(0) if self.splits is None else super().__getitem__(self.splits[0])[0]
+        self.types = []
+        for f in self.tfms.fs:
+            self.types.append(getattr(f, 'input_types', type(x)))
+            x = f(x)
+        self.types.append(type(x))
+    t = getattr(self, 'types', [])
+    if t is None or len(t) == 0: raise Exception("The stored dataset contains no items and `self.types` has not been setup yet")
+    types = L(t if is_listy(t) else [t] for t in self.types).concat().unique()
+    self.pretty_types = '\n'.join([f'  - {t}' for t in types])

@@ -24,7 +24,8 @@ index = {"device_error": "00_torch.ipynb",
          "Transform.decode": "03_fastai.transform.ipynb",
          "TfmdLists.__init__": "04_fastai.datasets.ipynb",
          "subset_error": "04_fastai.datasets.ipynb",
-         "TfmdLists.subset": "04_fastai.datasets.ipynb"}
+         "TfmdLists.subset": "04_fastai.datasets.ipynb",
+         "TfmdLists.setup": "04_fastai.datasets.ipynb"}
 
 modules = ["torch.py",
            "fastai/dataloader.py",

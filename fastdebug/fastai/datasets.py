@@ -6,6 +6,7 @@ __all__ = ['subset_error']
 from fastcore.basics import patch, store_attr
 from fastcore.foundation import L, mask2idxs
 from fastcore.transform import Pipeline
+from fastcore.xtras import is_listy
 
 from fastai.imports import pv
 from fastai.data.core import TfmdLists
@@ -50,7 +51,7 @@ def setup(self:TfmdLists, train_setup=True):
     "Transform setup with self"
     self.tfms.setup(self, train_setup)
     if len(self) != 0:
-        x = super().__getitem__(0) if self.splits is None else super().__getitem__(self.splits[0])[0]
+        x = super(TfmdLists, self).__getitem__(0) if self.splits is None else super(TfmdLists, self).__getitem__(self.splits[0])[0]
         self.types = []
         for f in self.tfms.fs:
             self.types.append(getattr(f, 'input_types', type(x)))
